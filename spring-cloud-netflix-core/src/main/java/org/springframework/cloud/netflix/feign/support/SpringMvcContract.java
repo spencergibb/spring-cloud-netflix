@@ -27,7 +27,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.cloud.netflix.feign.AnnotatedParameterProcessor;
+import org.springframework.cloud.netflix.feign.annotation.AnnotatedParameterProcessor;
 import org.springframework.cloud.netflix.feign.annotation.PathVariableParameterProcessor;
 import org.springframework.cloud.netflix.feign.annotation.RequestHeaderParameterProcessor;
 import org.springframework.cloud.netflix.feign.annotation.RequestParamParameterProcessor;

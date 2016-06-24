@@ -20,7 +20,6 @@ import java.lang.annotation.Annotation;
 import java.util.Collection;
 import java.util.Map;
 
-import org.springframework.cloud.netflix.feign.AnnotatedParameterProcessor;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import feign.MethodMetadata;

@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.netflix.metrics.servo.ServoMonitorCache;
+import org.springframework.cloud.netflix.metrics.tag.MetricsTagProvider;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 

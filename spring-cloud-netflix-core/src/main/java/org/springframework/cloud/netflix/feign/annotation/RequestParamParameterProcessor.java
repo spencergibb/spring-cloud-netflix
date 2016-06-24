@@ -19,7 +19,6 @@ package org.springframework.cloud.netflix.feign.annotation;
 import java.lang.annotation.Annotation;
 import java.util.Collection;
 
-import org.springframework.cloud.netflix.feign.AnnotatedParameterProcessor;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import static feign.Util.checkState;
