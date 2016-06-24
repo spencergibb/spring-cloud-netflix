@@ -16,6 +16,9 @@
 
 package org.springframework.cloud.netflix.zuul;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.endpoint.Endpoint;
 import org.springframework.boot.actuate.trace.TraceRepository;
@@ -36,12 +39,13 @@ import org.springframework.cloud.netflix.zuul.filters.discovery.DiscoveryClientR
 import org.springframework.cloud.netflix.zuul.filters.discovery.ServiceRouteMapper;
 import org.springframework.cloud.netflix.zuul.filters.discovery.SimpleServiceRouteMapper;
 import org.springframework.cloud.netflix.zuul.filters.pre.PreDecorationFilter;
-import org.springframework.cloud.netflix.zuul.filters.route.okhttp.OkHttpRibbonCommandFactory;
 import org.springframework.cloud.netflix.zuul.filters.route.RestClientRibbonCommandFactory;
 import org.springframework.cloud.netflix.zuul.filters.route.RibbonCommandFactory;
 import org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter;
 import org.springframework.cloud.netflix.zuul.filters.route.SimpleHostRoutingFilter;
 import org.springframework.cloud.netflix.zuul.filters.route.apache.HttpClientRibbonCommandFactory;
+import org.springframework.cloud.netflix.zuul.filters.route.okhttp.OkHttpRibbonCommandFactory;
+import org.springframework.cloud.netflix.zuul.filters.route.support.RibbonRequestCustomizer;
 import org.springframework.cloud.netflix.zuul.web.ZuulHandlerMapping;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
@@ -57,6 +61,9 @@ public class ZuulProxyConfiguration extends ZuulConfiguration {
 
 	@Autowired(required = false)
 	private TraceRepository traces;
+
+	@Autowired(required = false)
+	private List<RibbonRequestCustomizer> requestCustomizers = Collections.emptyList();
 
 	@Autowired
 	private DiscoveryClient discovery;
@@ -122,7 +129,7 @@ public class ZuulProxyConfiguration extends ZuulConfiguration {
 	public RibbonRoutingFilter ribbonRoutingFilter(ProxyRequestHelper helper,
 			RibbonCommandFactory<?> ribbonCommandFactory) {
 		RibbonRoutingFilter filter = new RibbonRoutingFilter(helper,
-				ribbonCommandFactory);
+				ribbonCommandFactory, this.requestCustomizers);
 		return filter;
 	}
 

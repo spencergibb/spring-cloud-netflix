@@ -35,6 +35,8 @@ import okio.BufferedSink;
 import okio.Okio;
 import okio.Source;
 
+import static org.springframework.cloud.netflix.zuul.filters.route.support.RibbonRequestCustomizer.Runner.customize;
+
 /**
  * @author Spencer Gibb
  */
@@ -72,11 +74,14 @@ public class OkHttpRibbonRequest extends ContextAwareRequest implements Cloneabl
 			requestBody = new InputStreamRequestBody(this.context.getRequestEntity(), mediaType, this.context.getContentLength());
 		}
 
-		return new Request.Builder()
+		Request.Builder builder = new Request.Builder()
 				.url(url.build())
 				.headers(headers.build())
-				.method(this.context.getMethod(), requestBody)
-				.build();
+				.method(this.context.getMethod(), requestBody);
+
+		customize(this.context.getRequestCustomizers(), builder);
+
+		return builder.build();
 	}
 
 	public OkHttpRibbonRequest withNewUri(final URI uri) {

@@ -28,6 +28,8 @@ import org.springframework.cloud.netflix.zuul.filters.route.RibbonCommandContext
 
 import lombok.Getter;
 
+import static org.springframework.cloud.netflix.zuul.filters.route.support.RibbonRequestCustomizer.Runner.customize;
+
 /**
  * @author Christian Lohmann
  */
@@ -68,6 +70,8 @@ public class RibbonApacheHttpRequest extends ContextAwareRequest implements Clon
 			}
 			builder.setEntity(entity);
 		}
+
+		customize(this.context.getRequestCustomizers(), builder);
 
 		builder.setConfig(requestConfig);
 		return builder.build();
